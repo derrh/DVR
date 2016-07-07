@@ -23,7 +23,7 @@ public class Session: URLSession {
 
     // MARK: - Initializers
 
-    public init(outputDirectory: String = "~/Desktop/DVR/", cassetteName: String, testBundle: Bundle = Bundle.allBundles().filter() { $0.bundlePath.hasSuffix(".xctest") }.first!, backingSession: URLSession = URLSession.shared()) {
+    public init(outputDirectory: String = "~/Desktop/DVR/", cassetteName: String, testBundle: Bundle = Bundle.allBundles.filter() { $0.bundlePath.hasSuffix(".xctest") }.first!, backingSession: URLSession = URLSession.shared) {
         self.outputDirectory = outputDirectory
         self.cassetteName = cassetteName
         self.testBundle = testBundle
@@ -186,7 +186,7 @@ public class Session: URLSession {
 
         // Create directory
         let outputDirectory = (self.outputDirectory as NSString).expandingTildeInPath
-        let fileManager = FileManager.default()
+        let fileManager = FileManager.default
         if !fileManager.fileExists(atPath: outputDirectory) {
 			do {
 				try fileManager.createDirectory(atPath: outputDirectory, withIntermediateDirectories: true, attributes: nil)
@@ -212,7 +212,7 @@ public class Session: URLSession {
             string = string.appending("\n")
 
             if let data = string.data(using: String.Encoding.utf8.rawValue) {
-                try? data.write(to: URL(fileURLWithPath: outputPath), options: [.dataWritingAtomic])
+                try? data.write(to: URL(fileURLWithPath: outputPath), options: [.atomic])
                 print("[DVR] Persisted cassette at \(outputPath). Please add this file to your test target")
             }
 

@@ -41,7 +41,7 @@ struct Interaction {
         }
 
         // Base64
-        return body.base64EncodedString([])
+        return body.base64EncodedString(options: [])
     }
 
     static func dencodeBody(_ body: AnyObject?, headers: [String: String]? = nil) -> Data? {
